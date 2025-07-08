@@ -2,6 +2,8 @@
 
 Balatro API library for easy implementation of a Credits badge in your balatro mods.
 
+Requires SMODS.
+
 To use it, simply add this to your SMODS definitions:
 
 ```
