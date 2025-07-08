@@ -37,9 +37,24 @@ function SMODS.create_mod_badges(obj, badges)
 			local strings = { }
 			for _, v in ipairs({ "art", "idea", "code" }) do
 				if obj.credits[v] then
-					for i = 1, #obj.credits[v] do
+					local authors = ""
+					if type(obj.credits[v]) == "string" then
+						authors = obj.credits[v]
+					else
+						authors = table.concat(obj.credits[v], ", ")
+					end
+					-- for author = 1, #obj.credits[v] do
+					-- 	if author > 2 then
+					-- 		authors = authors .. ", "
+					-- 	end
+					-- 	if author > 1 and author == #obj.credits[v] then
+					-- 		authors = authors .. " and "
+					-- 	end
+					-- 	authors = authors .. obj.credits[v][author]
+					-- end
+					if authors ~= "" then
 						strings[#strings + 1] =
-							localize({ type = "variable", key = "a_" .. v, vars = { obj.credits[v][i] } })[1]
+							localize({ type = "variable", key = "a_" .. v, vars = { authors } })[1]
 					end
 				end
 			end
