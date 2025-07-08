@@ -1,0 +1,4 @@
+.luarc.json
+.vscode/
+dependencies/
+run_balatro.sh

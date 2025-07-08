@@ -1,0 +1,161 @@
+-- This is based on the Balatro Multiplayer implementation
+-- Which is itself based on Cryptid.
+-- If either party wants me to remove the code,
+-- I absolutely will, and will implement it myself.
+-- https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/localization/en-us.lua
+
+G.C.CREDITS = HEX("FF0000")
+
+-- Credit to Cryptid devs for this function			local function eq_col(x, y)
+local create_mod_badges_ref = SMODS.create_mod_badges
+function SMODS.create_mod_badges(obj, badges)
+	create_mod_badges_ref(obj, badges)
+	if obj and obj.credits then
+		obj.credits.art = obj.credits.art or {}
+		obj.credits.idea = obj.credits.idea or {}
+		obj.credits.code = obj.credits.code or {}
+		local function calc_scale_fac(text)
+			local size = 0.9
+			local font = G.LANG.font
+			local max_text_width = 2 - 2 * 0.05 - 4 * 0.03 * size - 2 * 0.03
+			local calced_text_width = 0
+			-- Math reproduced from DynaText:update_text
+			for _, c in utf8.chars(text) do
+				local tx = font.FONT:getWidth(c) * (0.33 * size) * G.TILESCALE * font.FONTSCALE
+					+ 2.7 * 1 * G.TILESCALE * font.FONTSCALE
+				calced_text_width = calced_text_width + tx / (G.TILESIZE * G.TILESCALE)
+			end
+			local scale_fac = calced_text_width > max_text_width and max_text_width / calced_text_width or 1
+			return scale_fac
+		end
+		if obj.credits.art or obj.credits.code or obj.credits.idea then
+			local scale_fac = {}
+			local min_scale_fac = 1
+			local strings = { }
+			for _, v in ipairs({ "art", "idea", "code" }) do
+				if obj.credits[v] then
+					for i = 1, #obj.credits[v] do
+						strings[#strings + 1] =
+							localize({ type = "variable", key = "a_" .. v, vars = { obj.credits[v][i] } })[1]
+					end
+				end
+			end
+			for i = 1, #strings do
+				scale_fac[i] = calc_scale_fac(strings[i])
+				min_scale_fac = math.min(min_scale_fac, scale_fac[i])
+			end
+			local ct = {}
+			for i = 1, #strings do
+				ct[i] = {
+					string = strings[i],
+				}
+			end
+			local badge = {
+				n = G.UIT.R,
+				config = { align = "cm" },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = {
+							align = "cm",
+							colour = G.C.CREDITS,
+							r = 0.1,
+							minw = 2 / min_scale_fac,
+							minh = 0.36,
+							emboss = 0.05,
+							padding = 0.03 * 0.9,
+						},
+						nodes = {
+							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+							{
+								n = G.UIT.O,
+								config = {
+									object = DynaText({
+										string = ct or "ERROR",
+										colours = { obj.credits and obj.credits.text_colour or G.C.WHITE },
+										silent = true,
+										float = true,
+										shadow = true,
+										offset_y = -0.03,
+										spacing = 1,
+										scale = 0.33 * 0.9,
+									}),
+								},
+							},
+							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+						},
+					},
+				},
+			}
+			-- local function eq_col(x, y)
+			-- 	for i = 1, 4 do
+			-- 		if x[1] ~= y[1] then
+			-- 			return false
+			-- 		end
+			-- 	end
+			-- 	return true
+			-- end
+			-- for i = 1, #badges do
+			-- 	if eq_col(badges[i].nodes[1].config.colour, G.C.CREDITS) then
+			-- 		badges[i].nodes[1].nodes[2].config.object:remove()
+			-- 		badges[i] = badge
+			-- 		break
+			-- 	end
+			badges[#badges+1] = badge
+		end
+	end
+end
+
+SMODS.Joker {
+    key = "Estradiol",
+    loc_txt = {
+        name = "Estradiol",
+        text = {
+            "Turns all played {C:attention}Kings{} and {C:attention}Jacks{}",
+            "into {C:attention}Queens{}.",
+            "{C:inactive}is this celeste from the hit game celeste? - blue{}"
+        }
+    },
+    pos = { x = 0, y = 0 },
+    cost = 7,
+    rarity = 3,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+
+    check_for_unlock = function(self)
+        unlock_card(self)
+    end,
+
+    -- calculate = function (self, card, context)
+    --     if context.before and context.main_eval and not context.blueprint then
+    --         local found = 0
+    --         for _, scored_card in ipairs(context.scoring_hand) do
+    --             if scored_card:get_id() == 11 or scored_card:get_id() == 13 then
+    --                 found = found + 1
+    --                 assert(SMODS.change_base(scored_card, nil, "Queen"))
+    --                 G.E_MANAGER:add_event(Event({
+    --                     func = function()
+    --                         scored_card:juice_up()
+    --                         return true
+    --                     end
+    --                 }))
+    --             end
+    --         end
+    --         if found > 0 then
+    --             return {
+    --                 message = "Transitioned!",
+    --                 colour = G.C.MONEY
+    --             }
+    --         end
+    --     end
+    -- end,
+
+	credits = {
+		art = { "colonthreeing" },
+		code = { "colonthreeing" },
+		idea = { "colonthreeing" }
+	}
+}

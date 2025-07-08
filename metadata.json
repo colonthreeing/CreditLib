@@ -1,0 +1,17 @@
+{
+	"id": "libcredit",
+	"name": "Credits Library",
+	"author": ["colonthreeing"],
+	"description": "API mod for making credit badges for cards.",
+	"prefix": "libcredit",
+	"main_file": "main.lua",
+	"priority": 0,
+	"credit_text_colour": "FFFFFF",
+	"display_name": "Credits Library",
+	"version": "0.1.0",
+	"dependencies": [
+		"Steamodded (>=1.*)",
+		"Lovely (>=0.6)"
+	],
+	"conflicts": []
+}
