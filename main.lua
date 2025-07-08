@@ -5,18 +5,15 @@
 -- https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/localization/en-us.lua
 
 
-
--- Credit to Cryptid devs for this function
 local create_mod_badges_ref = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
-	local color = HEX("FF0000")
-
-	if obj and obj.original_mod then
-		color = SMODS.Mods[obj.original_mod.id].badge_colour
-	end
-
 	create_mod_badges_ref(obj, badges)
 	if obj and obj.credits then
+		local color = HEX("FF0000")
+	
+		if obj.original_mod then
+			color = SMODS.Mods[obj.original_mod.id].badge_colour
+		end
 		obj.credits.art = obj.credits.art or {}
 		obj.credits.idea = obj.credits.idea or {}
 		obj.credits.code = obj.credits.code or {}
