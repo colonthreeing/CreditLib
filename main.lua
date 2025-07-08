@@ -4,11 +4,17 @@
 -- I absolutely will, and will implement it myself.
 -- https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/localization/en-us.lua
 
-G.C.CREDITS = HEX("FF0000")
 
--- Credit to Cryptid devs for this function			local function eq_col(x, y)
+
+-- Credit to Cryptid devs for this function
 local create_mod_badges_ref = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
+	local color = HEX("FF0000")
+
+	if obj and obj.original_mod then
+		color = SMODS.Mods[obj.original_mod.id].badge_colour
+	end
+
 	create_mod_badges_ref(obj, badges)
 	if obj and obj.credits then
 		obj.credits.art = obj.credits.art or {}
@@ -58,7 +64,7 @@ function SMODS.create_mod_badges(obj, badges)
 						n = G.UIT.R,
 						config = {
 							align = "cm",
-							colour = G.C.CREDITS,
+							colour = color,
 							r = 0.1,
 							minw = 2 / min_scale_fac,
 							minh = 0.36,
@@ -87,20 +93,7 @@ function SMODS.create_mod_badges(obj, badges)
 					},
 				},
 			}
-			-- local function eq_col(x, y)
-			-- 	for i = 1, 4 do
-			-- 		if x[1] ~= y[1] then
-			-- 			return false
-			-- 		end
-			-- 	end
-			-- 	return true
-			-- end
-			-- for i = 1, #badges do
-			-- 	if eq_col(badges[i].nodes[1].config.colour, G.C.CREDITS) then
-			-- 		badges[i].nodes[1].nodes[2].config.object:remove()
-			-- 		badges[i] = badge
-			-- 		break
-			-- 	end
+
 			badges[#badges+1] = badge
 		end
 	end
