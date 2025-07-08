@@ -14,9 +14,11 @@ function SMODS.create_mod_badges(obj, badges)
 		if obj.original_mod then
 			color = SMODS.Mods[obj.original_mod.id].badge_colour
 		end
+
 		obj.credits.art = obj.credits.art or {}
 		obj.credits.idea = obj.credits.idea or {}
 		obj.credits.code = obj.credits.code or {}
+
 		local function calc_scale_fac(text)
 			local size = 0.9
 			local font = G.LANG.font
@@ -31,43 +33,41 @@ function SMODS.create_mod_badges(obj, badges)
 			local scale_fac = calced_text_width > max_text_width and max_text_width / calced_text_width or 1
 			return scale_fac
 		end
+
 		if obj.credits.art or obj.credits.code or obj.credits.idea then
 			local scale_fac = {}
 			local min_scale_fac = 1
 			local strings = { }
+
 			for _, v in ipairs({ "art", "idea", "code" }) do
 				if obj.credits[v] then
 					local authors = ""
+
 					if type(obj.credits[v]) == "string" then
 						authors = obj.credits[v]
 					else
 						authors = table.concat(obj.credits[v], ", ")
 					end
-					-- for author = 1, #obj.credits[v] do
-					-- 	if author > 2 then
-					-- 		authors = authors .. ", "
-					-- 	end
-					-- 	if author > 1 and author == #obj.credits[v] then
-					-- 		authors = authors .. " and "
-					-- 	end
-					-- 	authors = authors .. obj.credits[v][author]
-					-- end
+
 					if authors ~= "" then
-						strings[#strings + 1] =
-							localize({ type = "variable", key = "a_" .. v, vars = { authors } })[1]
+						strings[#strings + 1] = localize({ type = "variable", key = "a_" .. v, vars = { authors } })[1]
 					end
 				end
 			end
+
 			for i = 1, #strings do
 				scale_fac[i] = calc_scale_fac(strings[i])
 				min_scale_fac = math.min(min_scale_fac, scale_fac[i])
 			end
+
 			local ct = {}
+
 			for i = 1, #strings do
 				ct[i] = {
 					string = strings[i],
 				}
 			end
+
 			local badge = {
 				n = G.UIT.R,
 				config = { align = "cm" },
