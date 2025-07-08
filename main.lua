@@ -9,10 +9,13 @@ local create_mod_badges_ref = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
 	create_mod_badges_ref(obj, badges)
 	if obj and obj.credits then
-		local color = HEX("FF0000")
+		local bg_color = HEX("FF0000")
+		local text_color = G.C.WHITE
 	
 		if obj.original_mod then
-			color = SMODS.Mods[obj.original_mod.id].badge_colour
+			local mod = SMODS.Mods[obj.original_mod.id]
+			bg_color = mod.badge_colour
+			text_color = mod.badge_text_colour
 		end
 
 		obj.credits.art = obj.credits.art or {}
@@ -76,7 +79,7 @@ function SMODS.create_mod_badges(obj, badges)
 						n = G.UIT.R,
 						config = {
 							align = "cm",
-							colour = color,
+							colour = bg_color,
 							r = 0.1,
 							minw = 2 / min_scale_fac,
 							minh = 0.36,
@@ -90,7 +93,7 @@ function SMODS.create_mod_badges(obj, badges)
 								config = {
 									object = DynaText({
 										string = ct or "ERROR",
-										colours = { obj.credits and obj.credits.text_colour or G.C.WHITE },
+										colours = { text_color },
 										silent = true,
 										float = true,
 										shadow = true,
