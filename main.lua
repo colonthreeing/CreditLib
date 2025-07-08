@@ -2,7 +2,7 @@
 -- Which is itself based on Cryptid.
 -- If either party wants me to remove the code,
 -- I absolutely will, and will implement it myself.
--- https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/localization/en-us.lua
+-- https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/misc/utils.lua#L255
 
 
 local create_mod_badges_ref = SMODS.create_mod_badges

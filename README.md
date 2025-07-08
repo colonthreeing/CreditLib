@@ -23,4 +23,4 @@ SMODS.Joker { -- or any other SMODS type that supports badges
 
 This is based on the work in the Balatro Multiplayer mod, which is in itself based on Cryptid. If either party wants me to remove the code from here then I will, and will try to remake it myself.
 
-[Here is the source code that I modified from the Multiplayer repository](https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/localization/en-us.lua)
+[Here is the source code that I modified from the Multiplayer repository](https://github.com/Balatro-Multiplayer/BalatroMultiplayer/blob/c3b0baf6c8a1a896cddb1aeccbd3b668dcc0fe8e/misc/utils.lua#L255)
