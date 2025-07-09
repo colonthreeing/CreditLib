@@ -21,7 +21,7 @@ SMODS.Joker { -- or any other SMODS type that supports badges
 }
 ```
 
-This mod also provides the 3xCredits mod's api, so it can be installed in its place.
+This mod also provides the [3xCredits](https://github.com/AuroraKy/3xCredits) mod's api, so it can be installed in its place.
 
 As such, you can also define credits with the `credit` field, or use `concept` instead of `idea`, and it will function identically. A table of values is also still supported for 3xCredits mode, and you can mix and match `idea` and `concept` in either mode.
 
