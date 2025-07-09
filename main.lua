@@ -8,7 +8,7 @@
 local create_mod_badges_ref = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
 	create_mod_badges_ref(obj, badges)
-	if obj and obj.credits then
+	if obj and (obj.credits or obj.credit) then
 		local bg_color = HEX("FF0000")
 		local text_color = G.C.WHITE
 	
@@ -18,10 +18,16 @@ function SMODS.create_mod_badges(obj, badges)
 			text_color = mod.badge_text_colour
 		end
 
-		obj.credits.art = obj.credits.art or {}
-		obj.credits.idea = obj.credits.idea or {}
-		obj.credits.code = obj.credits.code or {}
-
+		if obj.credits then
+			obj.credits.art = obj.credits.art or {}
+			obj.credits.idea = obj.credits.idea or obj.credits.concept or {}
+			obj.credits.code = obj.credits.code or {}
+		else -- if it uses credit instead of credits (for 3xCredit compatibility)
+			obj.credits = {}
+			obj.credits.art = obj.credit.art or {}
+			obj.credits.idea = obj.credit.idea or obj.credit.concept or {}
+			obj.credits.code = obj.credit.code or {}
+		end
 		local function calc_scale_fac(text)
 			local size = 0.9
 			local font = G.LANG.font
