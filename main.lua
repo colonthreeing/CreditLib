@@ -119,3 +119,10 @@ function SMODS.create_mod_badges(obj, badges)
 		end
 	end
 end
+
+SMODS.Atlas {
+    key = "modicon",
+    path = "icon.png",
+    px = 32,
+    py = 32
+}
