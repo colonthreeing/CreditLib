@@ -29,7 +29,7 @@ So, the earlier example could look more like this:
 
 ```lua
 SMODS.Joker {
-	credit = { -- credit instead of credits
+	credit = {                          -- credit instead of credits
 		art = "John Balatro",           -- same
 		code = { "Author1", "Author2" } -- dictionary allowed
 		concept = "LocalThunk"          -- rather than "idea"
