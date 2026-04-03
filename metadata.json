@@ -9,7 +9,7 @@
     "credit_text_colour": "FFFFFF",
     "display_name": "Credit Library",
     "version": "0.5.0",
-    "dependencies": ["Steamodded (>=1.*)", "Lovely (>=0.6)"],
+    "dependencies": [""],
     "conflicts": [],
     "provides": ["3xCredits (1.1~)"]
 }
