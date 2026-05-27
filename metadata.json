@@ -9,7 +9,6 @@
     "credit_text_colour": "FFFFFF",
     "display_name": "Credit Library",
     "version": "0.5.0",
-    "dependencies": [""],
     "conflicts": [],
     "provides": ["3xCredits (1.1~)"]
 }
